@@ -77,7 +77,7 @@ control_mean <- growth_experiments_july14_control %>%
   group_by(Fex, Mnx) %>% 
   summarize_all(mean) %>% 
   dplyr::select(Mnx, Fex, u_trans) %>% 
-  dplyr::rename(u_trans_control = u_trans)
+  dplyr::rename(u_trans_control = u_trans) # rename so that you can merge with the perturbation growth rates
 
 # read in the experimental conditions
 growth_experiments_july14 <- read_in_data_loop_growth_experiments('july14') %>% group_by(Fex, Mnx, par_changed) %>% summarize_all(mean)
@@ -87,11 +87,13 @@ growth_experiments_july14_control_appended <- growth_experiments_july14 %>%
   inner_join(control_mean, by = c('Mnx', 'Fex')) %>% 
   mutate(u_trans_ratio = u_trans/u_trans_control)
 
+# Making nice labels for the Mn and Fe concentrations
 growth_experiments_july14_control_appended$mn_experimental_condition <- ifelse(growth_experiments_july14_control_appended$Mnx > 1000, 'High Mn', no = 'Low Mn')
 growth_experiments_july14_control_appended$fe_experimental_condition <- ifelse(growth_experiments_july14_control_appended$Fex > 1000, 'High Fe', no = 'Low Fe')
   
 growth_experiments_july14_control_appended$experimental_condition <- paste(growth_experiments_july14_control_appended$fe_experimental_condition, growth_experiments_july14_control_appended$mn_experimental_condition, sep = '\n')
 
+# calculating the mean growth rate ratio (to the control) for plotting purposes
 mean_u_trans_ratio_df <- growth_experiments_july14_control_appended %>% 
   group_by(par_changed) %>% 
   summarize(mean_u_trans_ratio = mean(u_trans_ratio))
@@ -122,7 +124,7 @@ growth_experiments_heatmap <- growth_experiments_july14_control_appended_full_na
 
 growth_experiments_heatmap_full <- growth_experiments_july14_control_appended_full_names %>% 
   filter(full_name != 'old_k_cat',
-         full_name != 'Fe per Antioxidant') %>% 
+         full_name != 'Fe per Antioxidant') %>% # these parameters are filtered out because they are not used in the current model
   ggplot(aes(x = experimental_condition, 
              y = fct_reorder(full_name, u_trans_ratio))) +
   geom_tile(aes(fill = u_trans_ratio)) +
@@ -132,80 +134,14 @@ growth_experiments_heatmap_full <- growth_experiments_july14_control_appended_fu
   xlab('') +
   theme(legend.position = 'bottom') +
   ylab('Model Parameter');growth_experiments_heatmap_full
-# growth_experiments_july14_control_appended %>% 
-#   ggplot(aes(x = Fex, u_trans_ratio)) +
-#   facet_wrap(~experimental_condition, nrow = 4)
-# 
-# 
-# growth_experiments_july14_control_appended$congruence <- ifelgrowth_experiments_july14_control_appended
-# 
 
-
-
-external_mn_ribo <- model_out_mean %>%
-  # filter(Mnx < 1001, Fex > 1) %>% 
-  filter(Mnx < 1001) %>% 
-  ggplot(aes(x = Mnx, y = R, fill = Fex)) +
-  geom_point(pch = 21, size = 3, alpha = 0.7, stroke = 1) +
-  theme_bw() +
-  # geom_line(aes(group = Fex)) +
-  xlab('dMn (pM)') +
-  ylab('Ribosomes (per cell)') +
-  scale_fill_distiller(name = 'dFe (pM)', palette = 'RdYlBu') +
-  theme(panel.grid = element_blank(),
-        legend.position = c(0.8, 0.7));external_mn_ribo
-
-external_mn_a <- model_out_mean %>%
-  filter(Mnx < 1001) %>% 
-  # filter(Mnx < 1001, Fex > 1) %>% 
-  ggplot(aes(x = Mnx, y = A/2, fill = Fex)) +
-  geom_point(pch = 21, size = 3, alpha = 0.7, stroke = 1) +
-  theme_bw() +
-  xlab('dMn (pM)') +
-  ylab('Antioxidants (MnSOD per cell)') +
-  theme(legend.position = c(0.8, 0.3),
-         panel.grid = element_blank()) +
-  scale_fill_distiller(name = 'dFe (pM)', palette = 'RdYlBu');external_mn_a
-
-
-top_mn_anti <- ggarrange(external_mn_a, external_mn_ribo, 
-                         nrow = 1, align = 'hv',
-                         labels = c('a', 'b'))
-
-# heatmap_with_ribo_anti <- ggarrange(top_mn_anti, 
-#           growth_experiments_heatmap,
-#           nrow = 2,
-#           labels = c('', 'c'))
-
-# growth_experiments_ribo_anti <- ggarrange(growth_experiments_heatmap, 
-          # ggarrange(external_mn_a, external_mn_ribo, 
-                    # nrow = 2, align = 'hv', 
-                    # labels = c('b', 'c')), 
-          # nrow = 1, widths = c(2, 1), labels = c('a', ''));growth_experiments_ribo_anti
-
-
-# ggsave(heatmap_with_ribo_anti, 
-#        filename = 'figures/heatmap_with_ribo_anti.png',
-#        width = 10.2, height = 9.61)
 
 ggsave(growth_experiments_heatmap_full, 
        filename = 'figures/full_heatmap_growth_experiments.png',
        width = 10.2, height = 9.61)
 
-# growth_experiments_july14_control_appended_full_names %>% 
-#   filter(full_name != 'old_k_cat',
-#          full_name != 'Fe per Antioxidant') %>% 
-#   ggplot(aes(x = experimental_condition, 
-#              y = u_trans)) +
-#   geom_col() +
-#   theme_bw() +
-#   geom_point(aes(x = experimental_condition, 
-#                  y = u_trans_control)) +
-#   xlab('') +
-#   facet_wrap(~full_name) +
-#   theme(legend.position = 'right') +
-#   ylab('Model Parameter Modified')
 
+# plotting the interaction index
 
 mean_mid_growth <- growth_experiments_july14_control_appended_full_names %>% 
   filter(experimental_condition == 'High Fe\nLow Mn' |

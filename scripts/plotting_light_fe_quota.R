@@ -20,12 +20,12 @@ light_out_plot <- light_out_mean %>%
              size = 4, alpha = 0.7) +
   facet_grid(~Fex) +
   theme_bw() +
-  scale_shape_discrete('[dMn] (pm)') +
+  scale_shape_discrete('dMn (pm)') +
   theme(legend.position = c(0.8, 0.8),
         strip.background = element_rect(fill = 'white')) +
   # xlab('umol Einsteins * m^-2 *s^-1') +
   ylab('Fe Quota (amol Fe per cell)') +
-  xlab(label = expression(paste('uMol Einstein m'^-2, ' s'^-1)))
+  xlab(label = expression(paste('uEin m'^-2, ' s'^-1)))
 
 ggsave(light_out_plot, 
        filename = 'figures/light_fe_quota.png',

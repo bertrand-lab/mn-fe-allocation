@@ -297,7 +297,7 @@ def get_median_light(get_closest_par_output_test,
         par_list.append(get_closest_par_output_test[1][un_val].tolist()[0][0])
     
     # convert par units from einstein m^-2 day^-1 into microE m^-2 s^-1
-    station_surface_par_converted = par_list#*(1e6)/86400
+    station_surface_par_converted = par_list
     
     d = {'cruise':cruise_names_test,
          'station':station_names_test,

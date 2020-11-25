@@ -69,13 +69,14 @@ so_light <- so_data %>%
   mutate(in_mld = ifelse(DEPTH..m. > mld2, TRUE, FALSE)) %>% 
   filter(in_mld == TRUE) %>% 
   group_by(cruise_station) %>% 
-  summarize(median_light_level = (1e6/(60*1140))*mean(kd_490)*exp(-mean(par)*mean(mld2)/2),
+  # summarize(median_light_level = (1e6/(60*1140))*mean(kd_490)*exp(-mean(par)*mean(mld2)/2),
+  summarize(median_light_level = median(par)*1e6/(24*60*60)*exp(-median(kd_490)*median(mld2)/2),
             median_mn_level = median(Mn_D_CONC_BOTTLE..nmol.kg., na.rm = TRUE),
             median_fe_level = median(Fe_D_CONC_BOTTLE..nmol.kg., na.rm = TRUE)) %>%
   ggplot(aes(y = median_mn_level, 
              x = median_fe_level)) + 
   geom_point(size = 4, alpha = 0.9, aes(colour = median_light_level)) +
-  scale_colour_gradient(name = expression(paste('Median Mixed Layer Light (uE', m^-2, sec^-1, ")")),
+  scale_colour_gradient(name = expression(paste('Median Mixed Layer Light (uEin', m^-2, sec^-1, ")")),
                         low = 'blue', high = 'yellow') +
   # xlim(0, 1.5) +
   # ylim(0, 1.1) +
@@ -92,7 +93,7 @@ so_light_df <- so_data %>%
   mutate(in_mld = ifelse(DEPTH..m. > mld2, TRUE, FALSE)) %>% 
   filter(in_mld == TRUE) %>% 
   group_by(cruise_station) %>% 
-  summarize(median_light_level = (1e6/(60*1140))*mean(kd_490)*exp(-mean(par)*mean(mld2)/2),
+  summarize(median_light_level = median(par)*1e6/(24*60*60)*exp(-median(kd_490)*median(mld2)/2),
             median_mn_level = median(Mn_D_CONC_BOTTLE..nmol.kg., na.rm = TRUE),
             median_fe_level = median(Fe_D_CONC_BOTTLE..nmol.kg., na.rm = TRUE))
 
@@ -257,7 +258,7 @@ mn_fe_observed_concentrations_plot <- ggplot(data = combined_fish_geo, aes(y = m
   guides(size = FALSE) +
   scale_shape_manual(name = "Sampling Method", values = c("square", "circle")) +
   scale_size_manual(values = c(4, 2)) +
-  scale_colour_gradient(name = expression(paste('Median Mixed \nLayer Light (uE', m^-2, sec^-1, ")")),
+  scale_colour_gradient(name = expression(paste('Median Mixed \nLayer Light (uEin', m^-2, sec^-1, ")")),
                         low = 'darkblue', high = 'yellow',
                         guide = guide_colourbar(direction = "horizontal")) +
   theme(legend.position = c(0.73, 0.155),
