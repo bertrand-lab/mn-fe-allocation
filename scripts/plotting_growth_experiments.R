@@ -1,5 +1,5 @@
 ## making heatmap of the model growth rate experiments
-
+library(ggpubr)
 library(ggplot2)
 library(magrittr)
 library(dplyr)
@@ -222,5 +222,5 @@ interaction_index_no_heatmap_mid <- ggarrange(interaction_long_view,
 
 ggsave(interaction_index_no_heatmap_mid, 
        filename = 'figures/interaction_index_no_heatmap_mid.png',
-       width = 9.61, height = 7.57)
+       width = 8.42, height = 8.45)
 

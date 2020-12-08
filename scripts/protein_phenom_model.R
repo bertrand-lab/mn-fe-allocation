@@ -146,8 +146,9 @@ phi05_p <- phi05 %>%
   scale_fill_distiller(palette = 'Greens', 
                        name = 'Relative\nGrowth Rate') +
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
-  theme(axis.title = element_text(size = 12),
-        axis.text = element_text(size = 10),
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 8),
+        title = element_text(size = 8),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi05_p
 
@@ -166,8 +167,9 @@ phi09_p <- phi09 %>%
   scale_fill_distiller(palette = 'Greens', 
                        name = 'Relative\nGrowth Rate') +
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
-  theme(axis.title = element_text(size = 12),
-        axis.text = element_text(size = 10),
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 8),
+        title = element_text(size = 8),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi09_p
 
@@ -187,8 +189,9 @@ phi05_high_k_p <- phi05_high_k %>%
   scale_fill_distiller(palette = 'Greens', 
                        name = 'Relative\nGrowth Rate') +
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
-  theme(axis.title = element_text(size = 12),
-        axis.text = element_text(size = 10),
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 8),
+        title = element_text(size = 8),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi05_high_k_p
 # 
@@ -206,8 +209,9 @@ phi05_low_k_p <- phi05_low_k %>%
   scale_fill_distiller(palette = 'Greens', 
                        name = 'Relative\nGrowth Rate') +
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
-  theme(axis.title = element_text(size = 12),
-        axis.text = element_text(size = 10),
+  theme(axis.title = element_text(size = 10),
+        axis.text = element_text(size = 8),
+        title = element_text(size = 8),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi05_low_k_p
 

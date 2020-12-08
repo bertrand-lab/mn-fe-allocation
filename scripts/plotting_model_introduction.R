@@ -9,32 +9,13 @@ model_out_mean <- model_out_mnfe4_model1 %>%
 
 # empty plot for model schematic ------------------------------------------
 
-empty_plot <- model_out_mean %>% ggplot() + 
+empty_plot <- iris %>% ggplot() + 
   theme(plot.background = element_rect(fill = 'white', 
                                        colour = 'white'),
         panel.background = element_rect(fill = 'white', colour = 'white'));empty_plot
 
 
 # plotting parameter posteriors -------------------------------------------
-
-# cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_h_10_summarized.csv')
-# eps_meta <- read.csv('data/abc_intermediate/epsilon_a_meta_h_10_summarized.csv')
-# avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_h_10_summarized.csv')
-# cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_h_11_10000_summarized.csv')
-# eps_meta <- read.csv('data/abc_intermediate/epsilon_a_meta_h_11_10000_summarized.csv')
-# avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_h_11_10000_summarized.csv')
-# cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_h_12_20000_summarized.csv')
-# eps_meta <- read.csv('data/abc_intermediate/epsilon_a_meta_h_12_20000_summarized.csv')
-# avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_h_12_20000_summarized.csv')
-# cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_h_115_30000_summarized.csv')
-# eps_meta <- read.csv('data/abc_intermediate/epsilon_a_meta_h_115_30000_summarized.csv')
-# # avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_h_115_30000_summarized.csv')
-# cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_h_115_10000_dyntfe_summarized.csv')
-# eps_meta <- read.csv('data/abc_intermediate/epsilon_a_meta_h_115_10000_dyntfe_summarized.csv')
-# avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_h_115_10000_dyntfe_summarized.csv')
-# cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_combined_h40_summarized.csv')
-# eps_meta <- read.csv('data/abc_intermediate/epsilon_a_meta_combined_h40_summarized.csv')
-# avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_combined_h40_summarized.csv')
 
 cost_par_meta <- read.csv('data/abc_intermediate/cost_par_meta_combined_meta_cohen_nunn_h2_summarized.csv')
 avail_meta <- read.csv('data/abc_intermediate/avail_space_meta_combined_meta_cohen_nunn_h2_summarized.csv')
@@ -83,19 +64,6 @@ fe_transporters_fex <- model_out_mean %>%
 # growth rate plot --------------------------------------------------------
 
 ### this section required model_output_contour_plots.R to be run first
-
-# growth_rate_plot <- plots10[[3]] +
-#   ylim(0, 501) +
-#   scale_fill_distiller(name = 'Growth Rate\n (per day)') +
-#   theme(panel.grid = element_blank(),
-#         legend.key.size = unit(0.3, "cm"),
-#         legend.key.width = unit(0.3,"cm"),
-#         legend.position = c(0.65, 0.6),
-#         legend.text = element_text(angle = 45),
-#         legend.box.background = element_rect(colour = 'black', fill = alpha('white', 0)),
-#         legend.background = element_rect(fill=alpha('white', 
-#                                                     0.8))) +
-#   labs(title = NULL);growth_rate_plot
 
 growth_rate_plot_2 <- plots10[[3]] +
   ylim(0, 501) +
