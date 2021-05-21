@@ -61,8 +61,8 @@ growth_rate_comparison <- ggarrange(frag_model,
           pasuch_plot,
           peers_plot,
           peers_plot_ocean,
-          labels = c('a', 'b', 'c', 'd'),
-          nrow = 2, ncol = 2)  
+          labels = c('A', 'B', 'C', 'D'),
+          nrow = 2, ncol = 2, font.label = list(size = 9))  
 
 ggsave(growth_rate_comparison,
        filename = 'figures/quant_growth_mn_fe_low_high.png',

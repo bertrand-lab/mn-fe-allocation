@@ -42,8 +42,16 @@ eps_meta_p2 <- eps_meta %>%
   ggplot(aes(x = epsilon_a, y = probability)) +
   geom_col() +
   theme_bw() +
-  ylab('') +
+  ylab('Posterior\nProbability') +
   xlab('MnSOD Efficacy Parameter');eps_meta_p2
+
+## all parameter distributions
+
+par_estimates <- ggarrange(cost_meta_p1, avail_meta_p2, eps_meta_p2, labels = c('A', 'B', 'C'),
+                           font.label = list(size = 9))
+
+ggsave(par_estimates, filename = 'figures/parameter_estimate_posteriors.png',
+       width = 7.02, height = 6.57)
 
 # plotting fe transporters ------------------------------------------------
 
@@ -154,18 +162,19 @@ ggsave(post_predi_value,
 
 top_right_combined <- ggarrange(growth_rate_plot_2, 
                                 fe_transporters_fex, 
-                                cost_meta_p1, 
-                                avail_meta_p2,
-                                labels = c('b', 'c', 'd', 'e'), 
+                                # cost_meta_p1, 
+                                # avail_meta_p2,
+                                labels = c('B', 'C'),#, 'D', 'E'), 
                                 align = 'hv', 
-                                common.legend = TRUE, legend = 'right');top_right_combined
+                                common.legend = TRUE, legend = 'top', 
+                                nrow = 2, ncol = 1, font.label = list(size = 9));top_right_combined
 
 p1_top <- ggarrange(empty_plot, 
                     top_right_combined,
-                    heights = c(1.5, 1), labels = c('a', 
-                                                    ''),
-                    nrow = 1)
+                    heights = c(2.5, 0.5), widths = c(1.1, 0.5),
+                    labels = c('A', ''),
+                    nrow = 1, font.label = list(size = 9))
 ggsave(p1_top,
        filename = 'figures/intro_to_model_only.png',
-       width = 10.8, height = 4.83)
+       width = 10.8*4/5, height = 4.83)
 

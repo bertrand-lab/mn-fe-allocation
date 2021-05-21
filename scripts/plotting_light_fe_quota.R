@@ -20,7 +20,7 @@ light_out_plot <- light_out_mean %>%
              size = 4, alpha = 0.7) +
   facet_grid(~Fex) +
   theme_bw() +
-  scale_shape_discrete('dMn (pm)') +
+  scale_shape_discrete('dMn (pM)') +
   theme(legend.position = c(0.8, 0.8),
         strip.background = element_rect(fill = 'white')) +
   # xlab('umol Einsteins * m^-2 *s^-1') +

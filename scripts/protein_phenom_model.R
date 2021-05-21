@@ -138,7 +138,8 @@ phi05 <- list_of_theta_fe(fex_seq = fex_conc, theta_fe_seq = c(0.5))
 phi05_p <- phi05 %>% 
   ggplot(aes(x = fex, y = mnx, fill = u_trans)) +
   theme_bw() +
-  ggtitle(expression(paste('Fe Cost Parameter (', psi[italic(Fe)], ") = 0.5"))) +
+  # ggtitle(expression(paste('Fe Cost Parameter (', psi[italic(Fe)], ") = 0.5"))) +
+  ggtitle('Similar Cellular Costs\nacross Micronutrients') +
   geom_raster(interpolate = TRUE) +
   geom_contour(aes(z = u_trans),
                colour = 'black', lwd = 0.4,
@@ -148,7 +149,7 @@ phi05_p <- phi05 %>%
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
   theme(axis.title = element_text(size = 10),
         axis.text = element_text(size = 8),
-        title = element_text(size = 8),
+        title = element_text(size = 9),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi05_p
 
@@ -159,7 +160,8 @@ phi09_p <- phi09 %>%
   ggplot(aes(x = fex, y = mnx, fill = u_trans)) +
   theme_bw() +
   # facet_grid(~cost_inter) +
-  ggtitle(expression(paste('Fe Cost Parameter (', psi[italic(Fe)], ") = 0.9"))) +
+  # ggtitle(expression(paste('Fe Cost Parameter (', psi[italic(Fe)], ") = 0.9"))) +
+  ggtitle('Dissimilar Cellular Costs\nacross Micronutrients') +
   geom_raster(interpolate = TRUE) +
   geom_contour(aes(z = u_trans),
                colour = 'black', lwd = 0.4,
@@ -169,7 +171,7 @@ phi09_p <- phi09 %>%
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
   theme(axis.title = element_text(size = 10),
         axis.text = element_text(size = 8),
-        title = element_text(size = 8),
+        title = element_text(size = 9),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi09_p
 
@@ -181,7 +183,8 @@ phi05_high_k_p <- phi05_high_k %>%
   ggplot(aes(x = fex, y = mnx, fill = u_trans)) +
   theme_bw() +
   # facet_grid(~cost_inter) +
-  ggtitle(expression(paste('Half Saturation Constant (', italic(K), ") = 20"))) +
+  # ggtitle(expression(paste('Half Saturation Constant (', italic(K), ") = 20"))) +
+  ggtitle('High Background Cost') +
   geom_raster(interpolate = TRUE) +
   geom_contour(aes(z = u_trans),
                colour = 'black', lwd = 0.4,
@@ -191,7 +194,7 @@ phi05_high_k_p <- phi05_high_k %>%
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
   theme(axis.title = element_text(size = 10),
         axis.text = element_text(size = 8),
-        title = element_text(size = 8),
+        title = element_text(size = 9),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi05_high_k_p
 # 
@@ -201,7 +204,8 @@ phi05_low_k_p <- phi05_low_k %>%
   ggplot(aes(x = fex, y = mnx, fill = u_trans)) +
   theme_bw() +
   # facet_grid(~cost_inter) +
-  ggtitle(expression(paste('Half Saturation Constant (', italic(K), ") = 1"))) +
+  # ggtitle(expression(paste('Half Saturation Constant (', italic(K), ") = 1"))) +
+  ggtitle('Low Background Cost') +
   geom_raster(interpolate = TRUE) +
   geom_contour(aes(z = u_trans),
                colour = 'black', lwd = 0.4,
@@ -211,7 +215,7 @@ phi05_low_k_p <- phi05_low_k %>%
   labs(y = 'Relative [Mn]', x = 'Relative [Fe]') +
   theme(axis.title = element_text(size = 10),
         axis.text = element_text(size = 8),
-        title = element_text(size = 8),
+        title = element_text(size = 9),
         legend.title = element_text(size = 10),
         strip.background = element_rect(fill = 'white'));phi05_low_k_p
 

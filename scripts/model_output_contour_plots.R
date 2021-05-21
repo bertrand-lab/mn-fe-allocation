@@ -412,39 +412,39 @@ margin_change <- c(0.1, 0.1, 0.1, 0.1)
 margin_shift <- 2
 margin_box <- c(-1, -1, -1, -1)
 
-plot_a <- plots10[[4]] + ggtitle('A) Antioxidants (%)') + xlab('') + 
+plot_a <- plots10[[4]] + ggtitle('Antioxidants (%)') + xlab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_b <- plots10[[5]] + ggtitle('B) Photosystem Units (%)') + xlab('') + ylab('') + 
+plot_b <- plots10[[5]] + ggtitle('Photosystem Units (%)') + xlab('') + ylab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_c <- plots10[[6]] + ggtitle('C) Ribosomes (%)') + xlab('') + ylab('') + 
+plot_c <- plots10[[6]] + ggtitle('Ribosomes (%)') + xlab('') + ylab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_d <- plots10[[7]] + ggtitle('D) Mn Transporters (%)') + xlab ('') + 
+plot_d <- plots10[[7]] + ggtitle('Mn Transporters (%)') + xlab ('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_e <- plots10[[8]] + ggtitle('E) Fe Transporters (%)') + xlab('') + ylab('') + 
+plot_e <- plots10[[8]] + ggtitle('Fe Transporters (%)') + xlab('') + ylab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_f <- plots10[[9]] + ggtitle('F) AA Biosynthesis (%)') + xlab('') + ylab('') + 
+plot_f <- plots10[[9]] + ggtitle('AA Biosynthesis (%)') + xlab('') + ylab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_g <- plots10[[3]] + ggtitle('G) Growth Rate (per day)') + 
+plot_g <- plots10[[3]] + ggtitle('Growth Rate (per day)') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_h <- plots10[[2]] + ggtitle('H) Cell Fe (aMol)') + ylab('') + 
+plot_h <- plots10[[2]] + ggtitle('Cell Fe (aMol)') + ylab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
-plot_i <- plots10[[1]] + ggtitle('I) Cell Mn (aMol)') + ylab('') + 
+plot_i <- plots10[[1]] + ggtitle('Cell Mn (aMol)') + ylab('') + 
   theme(plot.margin = unit(margin_change, "lines"),
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
@@ -454,86 +454,9 @@ plot_i <- plots10[[1]] + ggtitle('I) Cell Mn (aMol)') + ylab('') +
 
 full_sweep_out <- ggarrange(plot_a, plot_b, plot_c, plot_d, plot_e, 
           plot_f, plot_g, plot_h, plot_i,
-          nrow = 3, ncol = 3, align = 'v')
-
-full_sweep_out
+          nrow = 3, ncol = 3, align = 'v', labels = 'AUTO', font.label = list(size = 9))
 
 ggsave(full_sweep_out, filename = 'figures/full_model_sweep_base.png',
        width = 10.7, height = 9.61)
 
 # dev.off()
-
-
-# figure 4: quota comparison ----------------------------------------------
-
-
-# 
-# ros10_out %>% ggplot(aes(x = Fex, y = beta_tmn)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Fex, y = beta_tfe)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Fex, y = beta_r)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Fex, y = beta_a)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Fex, y = beta_p)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Fex, y = beta_tn)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Mnx, y = beta_tmn)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Mnx, y = beta_tfe)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Mnx, y = beta_r)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Mnx, y = beta_a)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Mnx, y = beta_p)) + geom_point()
-# ros10_out %>% ggplot(aes(x = Mnx, y = beta_tn)) + geom_point()
-# 
-# ros10_out %>% ggplot(aes(y = Mnx, x = Fex, colour = beta_tmn)) +
-#   geom_point(size = 5)
-# ros10_out %>% ggplot(aes(y = Mnx, x = Fex, colour = beta_tfe)) +
-#   geom_point(size = 5)
-# ros10_out %>% ggplot(aes(y = Mnx, x = Fex, colour = beta_a)) +
-#   geom_point(size = 5)
-# ros10_out %>% ggplot(aes(y = Mnx, x = Fex, colour = beta_p)) +
-#   geom_point(size = 5)
-# ros10_out %>% ggplot(aes(y = Mnx, x = Fex, colour = beta_tn)) +
-#   geom_point(size = 5)
-# ros10_out %>% ggplot(aes(y = Mnx, x = Fex, colour = beta_r)) +
-#   geom_point(size = 5)
-# 
-# model_mnfe4_ros10 %>% 
-#   filter(Mnx == 1) %>% 
-#   select(beta_r, beta_tmn, beta_tfe, beta_a, beta_tn, beta_p) %>% 
-#   plot()
-# model_mnfe4_ros10 %>% 
-#   filter(Mnx == 1) %>% 
-#   select(R, Tmn, Tfe, A, Tn, P) %>% 
-#   plot()
-# 
-# model_mnfe4_ros10 %>% 
-#   filter(Mnx == 1) %>% 
-#   ggplot(aes(x = A, y = R)) + geom_point()
-# 
-# model_mnfe4_ros10 %>% ggplot(aes(x = beta_tmn, y = beta_a)) +
-#   geom_point(aes(shape = as.factor(Mnx),colour = Fex))
-# 
-# model_mnfe4_ros10 %>% ggplot(aes(x = beta_r, y = beta_tmn)) +
-#   geom_point(aes(colour = Fex)) + facet_wrap(~Mnx)
-# 
-# model_mnfe4_ros10 %>% ggplot(aes(x = beta_a, y = beta_tmn)) +
-#   geom_point(aes(colour = Fex)) + facet_wrap(~Mnx)
-# 
-# model_mnfe4_ros10 %>% ggplot(aes(x = beta_p, y = beta_tmn)) +
-#   geom_point(aes(colour = Fex)) + facet_wrap(~Mnx)
-# 
-# 
-# # 
-# # model_mnfe4_ros100 <- model_out_mnfe4_model1 %>% filter(ros_par == 100)
-# # 
-# # model_out_mnfe4_model1_inter100 <- quota_growth_interpolate(model_mnfe4_ros100)
-# # plots100 <- quota_growth_plot(interpolate_out = model_out_mnfe4_model1_inter100, colour_scheme = 'Spectral')
-# 
-# plots10[[6]]
-# 
-# model_out_mnfe4_model1 %>% 
-#   ggplot(aes(x = Mnx, y = u_trans)) +
-#   geom_point() +
-#   facet_grid(~ros_par)
-# 
-# 
-# model_out_mnfe4_model1 %>% filter(Mnx == 1000, Fex == 750)
-# 
-# 

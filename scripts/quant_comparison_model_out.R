@@ -36,7 +36,7 @@ mcquaid_uptake_rates_zoomed <- mcquiad_uptake_rates %>%
 
 model_comparison_uptake_rates <- ggarrange(model_uptake_rates_hist, 
           mcquaid_uptake_rates_zoomed,
-          nrow = 1, ncol = 2)
+          nrow = 1, ncol = 2, labels = 'AUTO', font.label = list(size = 9))
 
 ggsave(model_comparison_uptake_rates, 
        filename = 'figures/uptake_rate_comparison.png',
@@ -52,7 +52,7 @@ culture_loay_data <- loay_data %>%
   geom_histogram() +
   theme_bw() +
   xlim(0, 0.37) +
-  ggtitle('Fragilariopsis cylindrus Culture Growth Rates:\nJabre and Bertrand 2020, L & O') +
+  ggtitle('Culture Growth Rates\nJabre and Bertrand 2020, L&O') +
   xlab('Growth Rate (per day)') +
   ylab('Count');culture_loay_data
 
@@ -65,11 +65,14 @@ model_growth_rates <- model_out_mnfe4_model1 %>%
   xlab('Growth Rate (per day)') +
   ylab('Count');model_growth_rates
 
+
 growth_rate_comparison <- ggarrange(model_growth_rates, 
-                                    culture_loay_data)
+                                    culture_loay_data, 
+                                    labels = 'AUTO', font.label = list(size = 9))
 
 ggsave(growth_rate_comparison, 
-       filename = 'figures/growth_rate_comparison.png')
+       filename = 'figures/growth_rate_comparison.png',
+       width = 9.65,height = 4.89)
 
 ## quotas from twining et al 
 
@@ -141,7 +144,7 @@ peers_price_mn_quota_plot <- model_out_mnfe4_model1 %>%
             lty = 2)
 
 peers_price_quota_comparison <- ggarrange(peers_price_fe_quota_plot, 
-          peers_price_mn_quota_plot, nrow = 1, ncol = 2)
+          peers_price_mn_quota_plot, nrow = 1, ncol = 2, labels = 'AUTO', font.label = list(size = 9))
 
 ggsave(peers_price_quota_comparison,
        filename = 'figures/peers_price_quota_comparison.png',

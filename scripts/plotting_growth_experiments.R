@@ -7,6 +7,7 @@ library(ggdendro)
 library(readr)
 library(ggrepel)
 library(forcats)
+library(scales)
 
 # read in the par name key
 
@@ -116,7 +117,10 @@ growth_experiments_heatmap <- growth_experiments_july14_control_appended_full_na
              y = fct_reorder(full_name_2, u_trans_ratio))) +
   geom_tile(aes(fill = u_trans_ratio)) +
   scale_fill_gradient2(midpoint = 1,
-                       name = 'Growth Rate\nFold Change') +
+                       name = 'Growth Rate\nFold Change',
+                       high = muted("red"),
+                       mid = "white",
+                       low = muted("blue")) +
   theme_bw() +
   xlab('') +
   theme(legend.position = 'bottom') +
@@ -160,67 +164,76 @@ interaction_df <- mean_low_growth %>%
 
 interaction_df_names <- interaction_df[interaction_df$int_index_min > quantile(interaction_df$int_index_min, 0.8) %>% as.numeric(), ]$full_name
 
+# plotting the parameters with the highest interaction index
 highest_interaction_parameters <- interaction_df %>%
-  dplyr::filter(full_name %in% interaction_df_names) %>% 
+  dplyr::filter(full_name %in% interaction_df_names) %>%
   ggplot(aes(x = fct_reorder(full_name, int_index_min, .desc = TRUE), 
              y = int_index_min)) +
   geom_col(fill = 'darkblue', alpha = 0.7) +
   theme_bw() +
-    theme(axis.text.x = element_text(angle = 90, vjust = 0.1, hjust = 1)) +
+  coord_flip() +
+    # theme(axis.text.x = element_text(angle = 90, vjust = 0.1, hjust = 1)) +
   ylab('Interaction Index') +
   # coord_flip() +
   xlab('Model Parameter');highest_interaction_parameters
+
+ggsave(highest_interaction_parameters, 
+       filename = 'figures/interaction_index_proteomic_allocation.png',
+       width = 7.95, height = 6.57)
 
 
 interaction_long_view <- ggarrange(empty_plot, 
           highest_interaction_parameters,
           nrow = 2, heights = c(0.5, 2),
-          labels = c('a', ''))
+          labels = c('A', ''), font.label = list(size = 9))
 
 
 all_phenom_out_plots <- ggarrange(phi05_high_k_p, phi05_low_k_p,
   phi05_p, phi09_p, nrow = 2, ncol = 2,
-  labels = c('c', 'd', 'e', 'f'),
-  common.legend = TRUE, legend = 'top')
+  labels = c('C', 'D', 'E', 'F'),
+  common.legend = TRUE, legend = 'top', font.label = list(size = 9))
 
 top_phenom_out_plots <- ggarrange(phi05_high_k_p, phi05_low_k_p, 
                                   nrow = 1, ncol = 2,
-  labels = c('c', 'd'),
-  common.legend = TRUE, legend = 'none')
+  labels = c('B', 'C'),
+  common.legend = TRUE, legend = 'none', font.label = list(size = 9))
 
 bottom_phenom_out_plots <- ggarrange(phi05_p, 
                                      phi09_p, 
                                   nrow = 1, ncol = 2,
-  labels = c('f', 'g'),
+  labels = c('E', 'F'),
   legend = 'bottom',
-  common.legend = TRUE)
+  common.legend = TRUE, font.label = list(size = 9))
 
 all_phenom_out_plots_blank_mid <- ggarrange(empty_plot, 
                                             top_phenom_out_plots,
                                             empty_plot,
                                             bottom_phenom_out_plots,
-                                            heights = c(1.75, 2, 1, 2.5),
-                                            labels = c('b', 'c', 'e'),
+                                            heights = c(1, 2, 1.3, 2.7),
+                                            labels = c('A', 'B', 'D'),
                                             ncol = 1,
-                                            common.legend = TRUE)
+                                            common.legend = TRUE, font.label = list(size = 9))
 
-all_phenom_out_plots_blank <- ggarrange(empty_plot,
-                                        all_phenom_out_plots, 
-                                        heights = c(1, 4),
-                                        labels = c('b', ''),
-                                        nrow = 2,
-                                        ncol = 1)
+# all_phenom_out_plots_blank <- ggarrange(empty_plot,
+#                                         all_phenom_out_plots, 
+#                                         heights = c(1, 4),
+#                                         labels = c('B', ''),
+#                                         nrow = 2,
+#                                         ncol = 1)
+# 
+# interaction_index_no_heatmap <- ggarrange(interaction_long_view,
+#           all_phenom_out_plots_blank, ncol = 2, 
+#           widths = c(1, 3))
+# 
+# interaction_index_no_heatmap_mid <- ggarrange(interaction_long_view,
+#                                           all_phenom_out_plots_blank_mid, 
+#           ncol = 2, 
+#           widths = c(1.2, 3))
 
-interaction_index_no_heatmap <- ggarrange(interaction_long_view,
-          all_phenom_out_plots_blank, ncol = 2, 
-          widths = c(1, 3))
-
-interaction_index_no_heatmap_mid <- ggarrange(interaction_long_view,
-                                          all_phenom_out_plots_blank_mid, 
-          ncol = 2, 
-          widths = c(1.2, 3))
-
-ggsave(interaction_index_no_heatmap_mid, 
-       filename = 'figures/interaction_index_no_heatmap_mid.png',
-       width = 8.42, height = 8.45)
+ggsave(all_phenom_out_plots_blank_mid, 
+       filename = 'figures/phenom_plots_only.png',
+       width = 8.42*(4/5)*0.63, height = 8.45*0.75)
+# ggsave(interaction_index_no_heatmap_mid, 
+#        filename = 'figures/interaction_index_no_heatmap_mid.png',
+#        width = 8.42, height = 8.45)
 

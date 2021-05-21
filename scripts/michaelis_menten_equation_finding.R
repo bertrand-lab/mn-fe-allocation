@@ -30,7 +30,7 @@ kfe_val <- coef(fex_nls)[2] %>% as.numeric()
 plot(x = c(1:3000), y = vmaxfe_val*c(1:3000)/(kfe_val + c(1:3000)), 
      type = 'l', ylim = c(0, 0.3),
      ylab = 'Growth Rate', xlab = 'dFe (pM)',
-     main = 'Monod-type Kinetics for Fe (dMn = 3000pM)')
+     main = 'A         Monod-type Kinetics for Fe (dMn = 3000pM)')
 points(x = high_mn_values$Fex, y = high_mn_values$u_trans)
 text(paste('K = ',round(kfe_val, 3), ' pM ', '(SE = ', 
            round(fex_nls_sum_se, 3), ')', sep = ''), x = 500, y = 0.26)
@@ -51,7 +51,7 @@ mnx_nls_sum_vmax_se <- mnx_nls_sum$coefficients[,2][1] %>% as.numeric()
 
 plot(x = c(1:3000), 
      y = vmaxmn_val*c(1:3000)/(kmn_val + c(1:3000)), 
-     main = 'Monod-type Kinetics for Mn (dFe = 3000pM)',
+     main = 'B         Monod-type Kinetics for Mn (dFe = 3000pM)',
      type = 'l',
      ylim = c(0, 0.3),
      ylab = 'Growth Rate', xlab = 'dMn (pM)')
