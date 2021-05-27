@@ -19,7 +19,7 @@ fish <- read.csv("data/oceanographic_data/FISH_trace_metal_data_JR271_JR274.csv"
 fish_no_contam <- fish %>% filter(fe_nm < 10000, cruise == 'JR274')
 
 fish_plot <- fish_no_contam %>% 
-  filter(cruise == 'JR274') %>%
+  filter(cruise == 'JR274', type == 'dissolved') %>%
   ggplot(aes(x = fe_nm, y = mn_nm)) + 
   geom_point(colour = 'white', size = 2) +
   geom_errorbarh(aes(xmin = fe_nm - fe_sd, xmax = fe_nm + fe_sd), alpha = 0.3) +
@@ -129,9 +129,10 @@ so_light_df$method <- rep("GEOTRACES Median Mixed Layer", nrow(so_light_df))
 fish_no_contam$method <- rep("Tow-FISH Surface", nrow(fish_no_contam))
 
 fish_no_contam_sub <- fish_no_contam %>% 
+  filter(type == 'dissolved') %>% 
   select(fe_nm, mn_nm, method) %>% 
   rename(median_mn_level = mn_nm,
-         median_fe_level = fe_nm)
+         median_fe_level = fe_nm) 
 
 empty_fish_df <- data.frame(matrix(nrow = nrow(fish_no_contam_sub),
                                    ncol = 2))
