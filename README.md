@@ -15,7 +15,7 @@ To re-run the code, you need the following file structure:
 \figures
 ```
 
-Also all of the data are deposited here (insert link) so you can run any stage of the script.
+Also all of the data are deposited [here](https://datadryad.org/stash/dataset/doi:10.5061/dryad.xd2547dfs) so you can run any stage of the script.
 
 ### Parameter Estimation
 
@@ -46,7 +46,7 @@ pip install --no-index --upgrade pip
 pip install -Iv numba==0.37.0
 ```
 
-Then you need to run the generation of models with parameters sampled from your prior distribution (warning this step takes a while -- ~1-2 months using 500-2000 cores).
+Then you need to run the generation of models with parameters sampled from your prior distribution (warning this step takes a while -- ~1-2 months using 500-2000 cores). If you don't want to run the inference step and just play around with the model parameters, go straight to "Running Base Model" section below.
 ```
 mnfe4_model3_abc2_cedar_sbatch.sh
 
@@ -114,4 +114,6 @@ nunn2013_proteome_vals.R
 
 - old script examining Nunn et al 2013 protein expression vals
 
+plotting_ros_equation.R
 
+- script that creates one of the supplementary figures to illustrate the reactive oxygen species compartment of the model.
