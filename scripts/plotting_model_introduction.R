@@ -176,5 +176,5 @@ p1_top <- ggarrange(empty_plot,
                     nrow = 1, font.label = list(size = 9))
 ggsave(p1_top,
        filename = 'figures/intro_to_model_only.png',
-       width = 10.8*4/5, height = 4.83)
+       width = 10.8*4/5, height = 4.83, dpi = 1000)
 

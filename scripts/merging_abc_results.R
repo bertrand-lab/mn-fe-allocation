@@ -37,7 +37,7 @@ write.csv(combined_sum_sq_added_meta_cohen_nunn, file = "data/abc_intermediate/c
 write.csv(combined_sum_sq_added_meta, file = "data/abc_intermediate/combined_sum_sq_meta.csv")
 
 
-cutoff_val <- quantile(combined_sum_sq_added_meta_cohen_nunn$sum_sq_dif, 0.01) %>% as.numeric()
+cutoff_val <- quantile(combined_sum_sq_added_meta_cohen_nunn$sum_sq_dif, 0.005) %>% as.numeric()
 
 combined_sum_sq_added_meta_cohen_nunn %>% 
   filter(sum_sq_dif < cutoff_val) %>% 
@@ -73,5 +73,5 @@ combined_sum_sq_added_meta_cohen_nunn %>%
 #   scale_x_log10()
 # 
 # 
-h_val <- 2
-quantile(exp(-combined_sum_sq_added_meta_cohen_nunn$sum_sq_dif^2/(2*h_val^2)), 0.95)
+# h_val <- 2
+# quantile(exp(-combined_sum_sq_added_meta_cohen_nunn$sum_sq_dif^2/(2*h_val^2)), 0.95)

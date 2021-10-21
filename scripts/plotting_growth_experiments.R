@@ -232,7 +232,7 @@ all_phenom_out_plots_blank_mid <- ggarrange(empty_plot,
 
 ggsave(all_phenom_out_plots_blank_mid, 
        filename = 'figures/phenom_plots_only.png',
-       width = 8.42*(4/5)*0.63, height = 8.45*0.75)
+       width = 8.42*(4/5)*0.63, height = 8.45*0.75, dpi = 1000)
 # ggsave(interaction_index_no_heatmap_mid, 
 #        filename = 'figures/interaction_index_no_heatmap_mid.png',
 #        width = 8.42, height = 8.45)

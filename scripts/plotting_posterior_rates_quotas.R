@@ -69,7 +69,7 @@ fe_uptake_posterior <- post_uptake_out %>%
   xlim(0, 0.6) +
   theme(legend.position = 'none', 
         strip.background = element_rect(fill = 'White')) +
-  xlab('Inferred Fe Uptake Rate\n(amol Fe / hour) ') +
+  xlab('Inferred Fe Uptake Rate\n(amol Fe per hour) ') +
   ylab("Posterior Probability") +
   scale_fill_manual(values = c('#7db1d6', '#376e9c'));fe_uptake_posterior
 
@@ -167,4 +167,4 @@ top_posterior_panel <- ggarrange(empty_plot, right_posteriors_nunn_top, ncol = 2
 
 ggsave(top_posterior_panel, 
        filename = 'figures/posterior_panel_w_empty.png',
-       width = 10.6, height = 5.33)
+       width = 10.6, height = 5.33, dpi = 1000)

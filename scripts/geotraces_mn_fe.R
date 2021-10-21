@@ -262,7 +262,7 @@ mn_fe_observed_concentrations_plot <- ggplot(data = combined_fish_geo, aes(y = m
   scale_colour_gradient(name = expression(paste('Median Mixed \nLayer Light (uEin', m^-2, sec^-1, ")")),
                         low = 'darkblue', high = 'yellow',
                         guide = guide_colourbar(direction = "horizontal")) +
-  theme(legend.position = c(0.73, 0.155),
+  theme(legend.position = c(0.3, 0.8),
         legend.spacing = unit(0.02, 'cm'),
         legend.box.background = element_rect(colour = 'black', fill = alpha('white', 0)),
         legend.background = element_rect(fill=alpha('white', 0.7))) +

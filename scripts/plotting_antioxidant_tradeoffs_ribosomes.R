@@ -69,5 +69,5 @@ lower_plots_internal_lim_rearrange <- ggarrange(a_r_trade_off, translation_alloc
 ggsave(lower_plots_internal_lim_rearrange, 
        filename = "figures/internal_lim_consequences_3.png",
        width = 10.7, 
-       height = 4.16)
+       height = 4.16, dpi = 1000)
 

@@ -103,7 +103,6 @@ nunn_model_par_sets_form2_relative <- nunn_model_par_sets_form2 %>%
   # dplyr::filter(cost_par > 0.2319033, cost_par < 0.2319035) # checking that the joinging worked as anticipated
   mutate(model_relative_change = aa_val_frac/norm_factor)
 
-
 # taking the mean across biological replicates from nunn et al 2013
 nunn_output_mean <- nunn_output %>% 
   group_by(coarse_grain, Fex) %>% 
