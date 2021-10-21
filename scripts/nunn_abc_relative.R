@@ -48,14 +48,6 @@ read_in_data_loop_ls <- function(data_name_string, dir_to_look = "data/abc_out/"
   return(master_dataframe)
 }
 
-# par_sets_model1 <- read_in_data_loop_ls(data_name_string = 'unn_par_gen__april8', 
-#                                        dir_to_look = "../mn-fe-allocation/data/abc_out/")
-# par_sets_model2 <- read_in_data_loop_ls(data_name_string = 'unn_par_gen__april9', 
-#                                        dir_to_look = "../mn-fe-allocation/data/abc_out/")
-# par_sets_model3 <- read_in_data_loop_ls(data_name_string = 'nunn_par_gen__april13', 
-#                                         dir_to_look = "../mn-fe-allocation/data/abc_out/")
-
-
 par_sets_model1 <- read_in_data_loop_ls(data_name_string = 'nunn_par_gen__april28',
                                         dir_to_look = "../mn-fe-allocation/data/abc_out/")
 par_sets_model2 <- read_in_data_loop_ls(data_name_string = 'nunn_par_gen__may',
@@ -149,88 +141,7 @@ joined_nunn_par_out_relative_mod <- joined_nunn_par_out_relative %>%
   inner_join(nunn_growth_rate_formatted,
              by = c('cost_par', 'avail_space', 'epsilon_a'))
 
-
-
-
 # writing abc output summary
 write.csv(joined_nunn_par_out_relative_mod,
           file = '../mn-fe-allocation/data/abc_intermediate/nunn_abc_par_sets_relative.csv', 
           row.names = FALSE)
-# 
-# # nunn_abc_par_sets_relative.csv
-# percent5_quantile_relative_nunn <- quantile(joined_nunn_par_out_relative$sum_sq_dif, 0.01) %>% as.numeric()
-# # 
-# # # gettin gquantiles
-# joined_nunn_par_out_q_relative <- joined_nunn_par_out_relative %>%
-#   dplyr::mutate(in_set = sum_sq_dif < percent5_quantile_relative_nunn)
-# # 
-# # joined_nunn_par_out_relative %>% 
-# #   ggplot(aes(x = sum_sq_dif)) +
-# #   geom_histogram(binwidth = 10) +
-# #   ggtitle('Nunn')
-# # 
-# # # plotting quantile cutoff
-# nunn_post_cost <- joined_nunn_par_out_q_relative %>%
-#   filter(in_set == TRUE) %>%
-#   ggplot(aes(cost_par)) +
-#   geom_histogram() +
-#   # geom_density(fill = 'grey70') +
-#   # facet_grid(~in_set) +
-#   theme_bw() +
-#   ggtitle('Nunn et al (2013)') +
-#   xlab('Fe Uptake Cost Parameter') +
-#   ylab('Count');nunn_post_cost
-# # 
-# # # plotting quantile cutoff
-# # nunn_post_eps <- joined_nunn_par_out_q_relative %>% 
-# #   filter(in_set == TRUE) %>%
-# #   ggplot(aes(epsilon_a)) +
-# #   geom_histogram() +
-# #   ggtitle('') +
-# #   # geom_density(fill = 'grey70') +
-# #   # facet_grid(~in_set) +
-# #   theme_bw() +
-# #   xlab('Epsilon a') +
-# #   ylab('Count');nunn_post_eps
-# # 
-# # # plotting quantile cutoff
-# nunn_post_avail <- joined_nunn_par_out_q_relative %>%
-#   filter(in_set == TRUE) %>%
-#   ggplot(aes(avail_space)) +
-#   ggtitle('') +
-#   geom_histogram() +
-#   # geom_density(fill = 'grey70') +
-#   # facet_grid(~in_set) +
-#   theme_bw() +
-#   xlab('Avail Space') +
-#   ylab('Count');nunn_post_avail
-# 
-# ggarrange(nunn_post_cost, nunn_post_eps, nunn_post_avail)
-# 
-# joined_nunn_par_out_q_relative %>% 
-#   ggplot(aes(sum_sq_dif)) +
-#   geom_histogram()+
-#   xlim(0, 10) +
-#   ggtitle('Distribution of Euclidean Distances: Nunn et al 2013 diatom proteome') +
-#   theme_bw()
-# 
-# # predictive posterior check ----------------------------------------------
-# 
-# posterior_predictive_check_nunn <- inner_join(nunn_model_par_sets_form2_relative, nunn_output_mean_relative, 
-#                                               by = c("Fex", "coarse_grain")) %>%
-#   inner_join(joined_nunn_par_out_q_relative, 
-#              by = c('cost_par', 'avail_space', 'epsilon_a')) %>% 
-#   filter(in_set == TRUE,
-#          coarse_grain != 'U',
-#          Fex < 2000) %>%
-#   ggplot(aes(x = coarse_grain, 
-#              y = model_relative_change)) +
-#   ggtitle('Nunn et al (2013)') + 
-#   geom_boxplot(width = 0.3) +
-#   facet_grid(~Fex) +
-#   # geom_violin() +
-#   geom_point(data = nunn_output_mean_relative %>% filter(coarse_grain != 'U', Fex < 2000), 
-#              aes(x = coarse_grain, y = relative_change),
-#              size = 3, colour = 'blue') +
-#   theme_bw() +
-#   scale_y_log10();posterior_predictive_check_nunn

@@ -69,7 +69,6 @@ so_light <- so_data %>%
   mutate(in_mld = ifelse(DEPTH..m. > mld2, TRUE, FALSE)) %>% 
   filter(in_mld == TRUE) %>% 
   group_by(cruise_station) %>% 
-  # summarize(median_light_level = (1e6/(60*1140))*mean(kd_490)*exp(-mean(par)*mean(mld2)/2),
   summarize(median_light_level = median(par)*1e6/(24*60*60)*exp(-median(kd_490)*median(mld2)/2),
             median_mn_level = median(Mn_D_CONC_BOTTLE..nmol.kg., na.rm = TRUE),
             median_fe_level = median(Fe_D_CONC_BOTTLE..nmol.kg., na.rm = TRUE)) %>%
@@ -78,8 +77,6 @@ so_light <- so_data %>%
   geom_point(size = 4, alpha = 0.9, aes(colour = median_light_level)) +
   scale_colour_gradient(name = expression(paste('Median Mixed Layer Light (uEin', m^-2, sec^-1, ")")),
                         low = 'blue', high = 'yellow') +
-  # xlim(0, 1.5) +
-  # ylim(0, 1.1) +
   scale_y_log10() + 
   scale_x_log10() +
   xlab(expression(paste('[Fe] nmol ', kg^-1))) +
@@ -99,28 +96,6 @@ so_light_df <- so_data %>%
 
 options(scipen=10000)
 
-
-ggplot(data = so_light_df, aes(y = median_mn_level, 
-           x = median_fe_level)) + 
-  geom_point(size = 4, alpha = 0.8, aes(colour = median_light_level), 
-             shape = 'square') +
-  geom_point(data = fish_no_contam, aes(x = fe_nm, y = mn_nm),
-             alpha = 0.3) +
-  scale_colour_gradient(name = expression(paste('Median Mixed Layer Light (uE', m^-2, sec^-1, ")")),
-                        low = 'blue', high = 'yellow') +
-  # xlim(0, 1.5) +
-  # ylim(0, 1.1) +
-  scale_y_log10() + 
-  scale_x_log10() +
-  xlab(expression(paste('[Fe] nmol ', kg^-1))) +
-  ylab(expression(paste('[Mn] nmol ', kg^-1))) +
-  theme_bw() +
-  theme(text = element_text(size = 14), legend.position = "top",
-        legend.text = element_text(angle = 45, size = 14, hjust = 1)) +
-  geom_abline(slope = 1, intercept = 0, alpha = 0.3) +
-  scale_shape_manual(name="")
-
-
 ### modifying dataframe so they can be together in one
 names(so_light_df)
 names(fish_no_contam)
@@ -138,13 +113,10 @@ empty_fish_df <- data.frame(matrix(nrow = nrow(fish_no_contam_sub),
                                    ncol = 2))
 
 names(empty_fish_df) <- names(so_light_df)[1:2]
-
 combined_fish <- cbind(empty_fish_df, fish_no_contam_sub)
-
 combined_fish_geo <- rbind(combined_fish, so_light_df)
 
-# SOME annoying plotting to make ggplot legend locations different on the same figure
-
+# plotting to make ggplot legend locations different on the same figure
 #https://stackoverflow.com/questions/13143894/how-do-i-position-two-legends-independently-in-ggplot
 
 # plot with just the light legend
@@ -222,20 +194,16 @@ p3 <- ggplot(data = combined_fish_geo, aes(y = median_mn_level,
         legend.box.background = element_rect(colour = "black"));p3
 
 ## GETTING legends from the plots above
-
 leg1 <- gtable_filter(ggplot_gtable(ggplot_build(p1)), "guide-box") 
 leg2 <- gtable_filter(ggplot_gtable(ggplot_build(p2)), "guide-box") 
 
 # adding legends back to plots
-
 plotNew <- p3 + 
   annotation_custom(grob = leg2, xmin = 1, xmax = 4, ymin = -1, ymax = 0.2)
 
 # add the light legend
 plotNew <- arrangeGrob(leg1, plotNew,
                        heights = unit.c(leg1$height, unit(1, "npc") -  leg1$height), ncol = 1)
-
-
 
 grid.newpage()
 grid.draw(plotNew)

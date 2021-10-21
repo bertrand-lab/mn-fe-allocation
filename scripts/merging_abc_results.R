@@ -36,42 +36,5 @@ write.csv(combined_sum_sq_added_meta_cohen, file = "data/abc_intermediate/combin
 write.csv(combined_sum_sq_added_meta_cohen_nunn, file = "data/abc_intermediate/combined_sum_sq_meta_cohen_nunn.csv")
 write.csv(combined_sum_sq_added_meta, file = "data/abc_intermediate/combined_sum_sq_meta.csv")
 
-
 cutoff_val <- quantile(combined_sum_sq_added_meta_cohen_nunn$sum_sq_dif, 0.005) %>% as.numeric()
 
-combined_sum_sq_added_meta_cohen_nunn %>% 
-  filter(sum_sq_dif < cutoff_val) %>% 
-  ggplot(aes(avail_space)) +
-  geom_histogram()
-combined_sum_sq_added_meta_cohen_nunn %>% 
-  filter(sum_sq_dif < cutoff_val) %>% 
-  ggplot(aes(cost_par)) +
-  geom_histogram()
-combined_sum_sq_added_meta_cohen_nunn %>% 
-  filter(sum_sq_dif < cutoff_val) %>% 
-  ggplot(aes(epsilon_a)) +
-  geom_histogram()
-
-
-# 
-# 
-# tester <- combined_sum_sq %>% 
-#   mutate(sum_sq_dif = sum_sq_dif_meta + sum_sq_dif_cohen + sum_sq_dif_nunn,
-#          weights_sq = exp(-(sum_sq_dif^2)/(2*30^2)))
-# 
-# 
-# cutoff_qu <- tester$weights_sq %>% quantile(0.95) %>% as.numeric()
-# 
-# 
-# tester %>% filter(weights_sq > cutoff_qu) %>% 
-#   dplyr::select(sum_sq_dif_meta, sum_sq_dif_cohen, sum_sq_dif_nunn) %>% 
-#   plot()
-# 
-# combined_sum_sq_added %>% 
-#   ggplot(aes(sum_sq_dif)) +
-#   geom_histogram() +
-#   scale_x_log10()
-# 
-# 
-# h_val <- 2
-# quantile(exp(-combined_sum_sq_added_meta_cohen_nunn$sum_sq_dif^2/(2*h_val^2)), 0.95)

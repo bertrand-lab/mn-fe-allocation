@@ -5,14 +5,6 @@ library(ggplot2)
 library(magrittr)
 library(reshape2)
 
-# setwd("../../Google Drive/Projects/mn-fe-allocation/")
-
-# nunn_model <- read.csv("data/model_output/nunn2013_paper_comparison.csv")
-
-# nunn_model_out <- read_in_data_loop(data_name_string = 'csv',
-                                    # dir_to_look = "data/model_output/nunn_model_out/")
-# nunn_model_mean <- nunn_model_out %>% group_by(Mnx, Fex) %>% summarize_all(mean)
-
 nunn_data <- read.csv("../mn-fe-allocation/data/culture_proteomes/Nunn2013_Table_S1_annotated_formatted.csv")
 
 # getting the sum of spectral counts per coarse grained protein group for + Fe
@@ -87,14 +79,4 @@ nunn_output <- rbind(minus_fe_reps2, plus_fe_reps2)
 names(nunn_output) <- c('coarse_grain', 'replicate', 'sum_spec_counts', 'Fex', 'percentage')
 
 nunn_output$model <- c(rep('Proteomic Data', nrow(nunn_output)))
-
-nunn_output %>% 
-  filter(coarse_grain == 'R' | coarse_grain == 'P') %>% 
-  select(-model) %>% 
-  dcast(formula = Fex + replicate ~ coarse_grain) %>% 
-  ggplot(aes(x = P, y = R)) +
-  geom_point() +
-  xlim(0, 0.5) +
-  ylim(0, 0.3)
-
 

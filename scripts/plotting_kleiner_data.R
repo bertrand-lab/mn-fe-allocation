@@ -11,22 +11,6 @@ kleiner_proc_short$lc <- rep('Short Chromatographic Run', nrow(kleiner_proc_shor
 
 kleiner_proc <- rbind(kleiner_proc_short, kleiner_proc_long)
 
-# kleiner_proc %>% 
-#   ggplot(aes(x = rescale(protein_amount), 
-#              y = rescale(mean_precursor_intensity),
-#              size = number_peps)) +
-#   geom_smooth(method = 'lm') +
-#   geom_point() +
-#   facet_grid(~lc) +
-#   scale_y_log10() +
-#   scale_x_log10() +
-#   guides(size=guide_legend(title="Number of Peptides")) +
-#   geom_abline(intercept = 0, slope = 1) +
-#   theme_bw() +
-#   xlab('Rescaled Protein Amount per Organism') +
-#   ylab('Rescaled Mean Peptide Intensity per Organism')
-
-
 kleiner_data_comparison <- kleiner_proc %>% 
   # filter(protein_amount < 200) %>% 
   ggplot(aes(x = rescale(protein_amount), 

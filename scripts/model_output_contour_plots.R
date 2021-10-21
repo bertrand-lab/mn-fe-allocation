@@ -383,26 +383,9 @@ model_out_mnfe4_model1 <- read_in_data_loop(data_name_string = 'mnfe4_model4_jul
                                             dir_to_look = 'data/model_output/', 
                                             string_to_not_include = 'baseline')
 
-# model_out_mnfe4_model1
-
-# model_mnfe4_ros10 <- model_out_mnfe4_model1# %>% filter(ros_par == 10) %>% 
-  # mutate(Tfe_aa = Tfe*(3590 + 8*fe_uptake/u^2)*(e)/(10000 + e),
-  #      Tmn_aa = Tmn*(372 + 8*mn_uptake/u^2)*(e)/(10000 + e),
-  #      total_aa = Tfe_aa + Tmn_aa + Tn_aa + A_aa + P_aa + R_aa + aa + ind,
-  #      A_frac = A_aa/total_aa,
-  #      Tn_frac = Tn_aa/total_aa,
-  #      P_frac = P_aa/total_aa,
-  #      R_frac = R_aa/total_aa,
-  #      Tfe_frac = Tfe_aa/total_aa,
-  #      Tmn_frac = Tmn/total_aa,
-  #      ind_frac = ind/total_aa)
-
-# figure 2: model output --------------------------------------------------
-
-# ros10_out_sd <- model_out_mnfe4_model1 %>% group_by(Fex, Mnx) %>% summarize_all(sd)
 ros10_out_mean <- model_out_mnfe4_model1 %>% 
   group_by(Fex, Mnx) %>% 
-  summarize_all(mean)# %>% filter(Mnx < 1001, Fex < 1001)
+  summarize_all(mean)
 
 model_out_mnfe4_model1_inter10_mean <- quota_growth_interpolate(ros10_out_mean)
 plots10 <- quota_growth_plot(interpolate_out = model_out_mnfe4_model1_inter10_mean, 
@@ -449,14 +432,9 @@ plot_i <- plots10[[1]] + ggtitle('Cell Mn (aMol)') + ylab('') +
         legend.margin = margin(margin_change + margin_shift),
         legend.box.margin = margin(margin_box))
 
-# tiff(filename = "figures/fig2_model_output.tiff", width = 30, height = 25, 
-#      units = "cm", res = 600)
-
 full_sweep_out <- ggarrange(plot_a, plot_b, plot_c, plot_d, plot_e, 
           plot_f, plot_g, plot_h, plot_i,
           nrow = 3, ncol = 3, align = 'v', labels = 'AUTO', font.label = list(size = 9))
 
 ggsave(full_sweep_out, filename = 'figures/full_model_sweep_base.png',
        width = 10.7, height = 9.61)
-
-# dev.off()

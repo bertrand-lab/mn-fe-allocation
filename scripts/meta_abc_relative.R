@@ -54,17 +54,11 @@ read_in_data_loop_ls <- function(data_name_string, dir_to_look = "../mn-fe-alloc
 }
 
 # read in the model ABC output
-# meta_model_out1 <- read_in_data_loop_ls(data_name_string = 'meta_par_gen__april9')
-# meta_model_out2 <- read_in_data_loop_ls(data_name_string = 'meta_par_gen__april8')
-# meta_model_out3 <- read_in_data_loop_ls(data_name_string = 'meta_par_gen__april13')
-# meta_model_out <- rbind(meta_model_out1, meta_model_out2, meta_model_out3)
 # 
 meta_model_out1 <- read_in_data_loop_ls(data_name_string = 'meta_par_gen__april28')
 meta_model_out2 <- read_in_data_loop_ls(data_name_string = 'meta_par_gen__may')
 
 meta_model_out <- rbind(meta_model_out1, meta_model_out2)
-
-# meta_model_out <- read_in_data_loop_ls(data_name_string = 'meta_par_gen__july', dir_to_look = '../mn-fe-allocation/data/abc_out/')
 
 # adding the replicate number and the day comparison for the meta model out
 meta_model_out$rep <- rep(1:(nrow(meta_model_out)/2), each=2)
@@ -123,11 +117,7 @@ mnfe3_meta_trans_2_relative <- mnfe3_meta_trans_2 %>%
 
 
 # read in the diatom proteome output from metaproteome
-# coarse_diatoms_specific <- read.csv('../ross-sea-meta-omics/data/correction-factor-output/coarse_diatoms_tfg_all_specific_manually_edited.csv')
 coarse_diatoms_specific_not_all_four <- read.csv('../ross-sea-meta-omics/data/correction-factor-output/coarse_diatoms_tfg_all_specific.csv')
-# coarse_diatoms_specific <- read.csv('../ross-sea-meta-omics/data/correction-factor-output/coarse_diatoms_tfg_all_specific.csv')
-
-# coarse_diatoms_specific <- coarse_diatoms_specific %>% dplyr::filter(grpnorm_assign == 'Fragilariopsis')
 
 peptides_observed_all_days <- coarse_diatoms_specific_not_all_four$peptide %>% 
   table() %>% 
@@ -233,116 +223,3 @@ mnfe_combined_relative <- mnfe_combined_relative_no_tmn_pos %>%
 write.csv(mnfe_combined_relative, 
           file = '../mn-fe-allocation/data/abc_intermediate/meta_abc_par_sets.csv',
           row.names = FALSE)
-
-
-######### plotting abc output analysis
-
-percent5_quantile_relative <- quantile(mnfe_combined_relative$sum_sq_dif, 0.01) %>% as.numeric()
-
-mnfe_combined_q <- mnfe_combined_relative %>%
-  dplyr::mutate(in_set = sum_sq_dif < percent5_quantile_relative)
-
-# mnfe_combined_q_tmn <- mnfe_combined_relative %>%
-  # dplyr::mutate(in_set = sum_sq_dif < percent5_quantile_relative) %>%
-  # filter(pos_change == TRUE)
-
-# mnfe_combined_q_tmn_in <- mnfe_combined_q_tmn %>% dplyr::filter(in_set == TRUE)
-# 
-# mnfe_combined_relative %>% 
-#   ggplot(aes(x = sum_sq_dif)) +
-#   geom_histogram() +
-#   # scale_x_log10() +
-#   
-#   xlim(0, 2.5) +
-#   ggtitle('Meta')
-# 
-# # plotting quantile cutoff
-fe_uptake_post <- mnfe_combined_q %>%
-  filter(in_set == TRUE) %>%
-  mutate(avail_space_high = avail_space > 0.075) %>%
-  ggplot(aes(cost_par)) +
-  geom_histogram() +
-  ggtitle('Metaproteome-derived Diatom Proteome') +
-  # geom_density(fill = 'grey70', kernel = 'gaussian') +
-  # facet_grid(avail_space_high~in_set) +
-  theme_bw() +
-  xlab('Fe Uptake Cost Parameter') +
-  ylab('Count');fe_uptake_post
-# 
-# # plotting quantile cutoff
-epsilon_post <- mnfe_combined_q %>%
-  filter(in_set == TRUE) %>%
-  mutate(avail_space_high = avail_space > 0.075) %>%
-  ggplot(aes(epsilon_a)) +
-  geom_histogram() +
-  ggtitle('') +
-  # geom_density(fill = 'grey70') +
-  # facet_grid(avail_space_high~in_set) +
-  theme_bw() +
-  xlab('Epsilon a') +
-  ylab('Count');epsilon_post
-# 
-# # plotting quantile cutoff
-avail_space_post <- mnfe_combined_q %>%
-  filter(in_set == TRUE) %>%
-  ggplot(aes(avail_space)) +
-  geom_histogram() +
-  # ggtitle('') +
-  # geom_density(fill = 'grey70', kernel = 'gaussian') +
-  # facet_grid(~in_set) +
-  theme_bw() +
-  # xlim(0, 0.15) +
-  xlab('Avail Space') +
-  ylab('Count');avail_space_post
-# 
-# ggarrange(fe_uptake_post, 
-#           epsilon_post, 
-#           avail_space_post)
-# 
-# ######### based on the combined abc, the ss error of 0.56 is a cutoff for parameter sets
-# best_par_comb_rel <- mnfe_combined_q %>% 
-#   mutate(combined_par_in_set = sum_sq_dif < percent5_quantile_relative) %>% 
-#   select(cost_par, 
-#          epsilon_a, 
-#          avail_space)
-# 
-# combined_par_sets_meta_model <- meta_model_out %>%
-#   inner_join(best_par_comb, by = c('epsilon_a', 'cost_par', 'avail_space'))
-# 
-# combined_par_sets_meta_model %>% 
-#   ggplot(aes(x = Fex %>% as.factor(), y = u)) +
-#   geom_boxplot()
-# 
-# 
-# ## distribution of euc distance
-# mnfe_combined_q %>% 
-#   ggplot(aes(sum_sq_dif)) +
-#   geom_histogram() +
-#   # xlim(0, 5) +
-#   geom_vline(xintercept = percent5_quantile) +
-#   ggtitle('Distribution of Euclidean Distances: Metaproteome-derived diatom proteome') +
-#   theme_bw() +
-#   scale_x_log10() +
-#   xlab('Euclidean Distance')
-# 
-# # looking at the posterior predictive check
-# posterior_predictive_check_meta_relative <- inner_join(mnfe3_meta_trans_2_relative, mnfe_combined_q_tmn,
-#                                                        by = c('cost_par', 'avail_space', 'epsilon_a')) %>%
-#   filter(in_set == TRUE, coarse_grain != 'Tmn', day == 3) %>%
-#   ggplot(aes(x = coarse_grain, y = relative_change))  +
-#   geom_boxplot(width = 0.3) +
-#   facet_grid(~day) +
-#   ggtitle('Metaproteome-derived diatom proteome') +
-#   theme_bw() +
-#   scale_y_log10() +
-#   geom_point(data = coarse_diatoms_specific_norm_relative %>%
-#                filter(day == 3) %>%
-#                filter(coarse_grains != 'U'),
-#              aes(x = coarse_grains, y = relative_change),
-#              size = 3,
-#              colour = 'blue');posterior_predictive_check_meta_relative
-# # 
-# 
-# 
-# 
-# 
