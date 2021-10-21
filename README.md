@@ -1,4 +1,4 @@
-This page describes how to run all the code for "Cellular costs underpin micronutrient limitation in phytoplankton", by J.S.P. McCain, A. Tagliabue, E. Susko, A.E. Achterberg, A.E. Allen, and E.M. Bertrand, published in Science Advances. [Here](https://www.science.org/doi/10.1126/sciadv.abg6501) is the paper. If you have any questions, please feel free to contact me at jspm_vegetable_cain@gmail.com (replacing the _vegetable_ with c).
+This page describes how to run all the code for "Cellular costs underpin micronutrient limitation in phytoplankton", by J.S.P. McCain, A. Tagliabue, E. Susko, A.E. Achterberg, A.E. Allen, and E.M. Bertrand, published in Science Advances. [Here](https://www.science.org/doi/10.1126/sciadv.abg6501) is the paper. If you have any questions, please feel free to contact me at jspm_vegetable_cain at gmail.com (replacing the \_vegetable\_ with c).
 
 `/scripts` contains all the files for running the model and conducting the Approximate Bayesian Computation for estimating model parameters.
 
